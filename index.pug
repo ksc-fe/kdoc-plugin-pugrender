@@ -1,0 +1,44 @@
+doctype html
+html(lang='en')
+    head
+        meta(charset="UTF-8")
+        meta(name="format-detection" content="telephone=no")
+        meta(name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, shrink-to-fit=no")
+        if keywords
+            meta(name="keywords"  content=`${keywords}`)
+        if description
+            meta(name="description" content=`${description}`)
+        meta(name= "robots" content="index,follow")
+        meta(http-equiv="x-dns-prefetch-control" content="on")
+        meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
+        meta(name="renderer"  content="webkit")
+        link(rel="shortcut icon" href=favicon ? `${favicon}` : '/favicon.ico' type="image/x-icon")
+        link(rel="stylesheet" href=hljscss)
+
+        each code in codes
+            if code.language == 'js' || code.language == 'javascript'
+                script ;(function(window){!{code.content}})(window);
+            if code.language == 'css' || code.language == 'style'
+                style !{code.content}
+        title=title ? title.text : ''
+
+    body
+        .content-wrapper
+            aside
+                .aside-wrapper
+                    .catalog-section
+                        h5 nav.titleText
+                        each nav in naves
+                            ul
+                                li
+                                    a(href=nav.path)
+                                    ul.sub-catalogs
+                                        li
+                    div(class="aside-border transition")
+            article
+                .article-head
+                    .title !{title.content}
+                .article-content
+                    div !{contents}
+
+        

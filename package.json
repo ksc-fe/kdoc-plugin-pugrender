@@ -1,0 +1,23 @@
+{
+  "name": "kdoc-plugin-pugrender",
+  "version": "1.0.0",
+  "description": "kdoc pug 插件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@newgit.op.ksyun.com:ksyun-fe/kdoc-plugin-pugrender.git"
+  },
+  "keywords": [
+    "kdoc",
+    "pug",
+    "插件"
+  ],
+  "author": "wangjianliang",
+  "license": "MIT",
+  "dependencies": {
+    "pug": "^2.0.0-rc.4"
+  }
+}
