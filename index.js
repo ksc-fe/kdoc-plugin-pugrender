@@ -63,7 +63,6 @@ function getSideBar(ctx) {
             });
         }
     });
-    console.dir(JSON.stringify(sideBars));
     return sideBars;
 }
 
