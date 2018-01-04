@@ -4,10 +4,21 @@ html(lang='en')
         meta(charset="UTF-8")
         meta(name="format-detection" content="telephone=no")
         meta(name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, shrink-to-fit=no")
+
+        -setting = setting || {}       
+        -keywords = setting.keywords
+        -description = setting.description
+        -author = setting.author
+        -title = setting.title
+
         if keywords
             meta(name="keywords"  content=`${keywords}`)
         if description
             meta(name="description" content=`${description}`)
+        if author
+            meta(name="author" content=`${author}`)
+
+
         meta(name= "robots" content="index,follow")
         meta(http-equiv="x-dns-prefetch-control" content="on")
         meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
@@ -15,29 +26,42 @@ html(lang='en')
         link(rel="shortcut icon" href=favicon ? `${favicon}` : '/favicon.ico' type="image/x-icon")
         link(rel="stylesheet" href=hljscss)
 
+
         each code in codes
             if code.language == 'js' || code.language == 'javascript'
                 script ;(function(window){!{code.content}})(window);
             if code.language == 'css' || code.language == 'style'
                 style !{code.content}
-        title=title ? title.text : ''
+
+        title= title
 
     body
         .content-wrapper
             aside
                 .aside-wrapper
-                    .catalog-section
-                        h5 nav.titleText
-                        each nav in naves
-                            ul
-                                li
-                                    a(href=nav.path)
-                                    ul.sub-catalogs
+                    
+                
+                    each side,key in sides
+                        .catalog-section
+                            h5 !{key}
+                            each nav in side
+                                ul
+
+                                    mixin sub-catalogs(list)
                                         li
+                                            if list.title
+                                                a(href=list.path?list.path:false class=list.level?`lavel${list.level}`:false) !{list.title}
+                                            if list.children&&list.children.length
+                                                ul.sub-catalogs
+                                                    each item,index in list.children
+                                                        +sub-catalogs(item)
+
+                                    +sub-catalogs(nav)
+
                     div(class="aside-border transition")
             article
                 .article-head
-                    .title !{title.content}
+                    .title !{title}
                 .article-content
                     div !{contents}
 
